@@ -28,7 +28,8 @@ define bundler::install(
   if $without { $without_real = " --without ${without}" }
   else        { $without_real = '' }
 
-  $command = $deployment ? {
+  $real_deployment = str2bool($deployment)
+  $command = $real_deployment ? {
     true  => "bundle install --deployment${without_real}",
     false => "bundle install${without_real}",
   }
